@@ -12,4 +12,5 @@ func main() {
 	designpattern.Factory()
 	designpattern.AbstractFactory()
 	designpattern.Facade()
+	designpattern.State()
 }
