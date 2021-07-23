@@ -13,4 +13,5 @@ func main() {
 	designpattern.AbstractFactory()
 	designpattern.Facade()
 	designpattern.State()
+	designpattern.Visitor()
 }
