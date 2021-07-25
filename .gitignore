@@ -16,3 +16,5 @@
 
 # GCP Credential Key
 externalsvc/credentials.json
+.env
+*/.env
