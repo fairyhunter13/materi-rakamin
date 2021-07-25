@@ -120,7 +120,7 @@ func main() {
 		return
 	}
 
-	log.Println("Uploading succeeded!")
+	log.Printf("Uploading the file #%s succeeded!", testFilename)
 	fmt.Println("UploadInfo:")
 	fmt.Printf("%+v\n", uploadInfo)
 }
