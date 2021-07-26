@@ -7,35 +7,21 @@ import (
 	"log"
 	"strings"
 
+	"github.com/fairyhunter13/materi-rakamin/pkg/config"
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
-	"github.com/spf13/viper"
 )
 
 type Config struct {
-	StorageEndpoint  string `mapstructure:"STORAGE_ENDPOINT"`
-	StorageAccessKey string `mapstructure:"STORAGE_ACCESS_KEY"`
-	StorageSecretKey string `mapstructure:"STORAGE_SECRET_KEY"`
-	StorageRegion    string `mapstructure:"STORAGE_REGION"`
-	StorageBucket    string `mapstructure:"STORAGE_BUCKET"`
+	Storage Storage `mapstructure:"STORAGE"`
 }
 
-func loadConfig(paths ...string) (c *Config, err error) {
-	for _, path := range paths {
-		viper.AddConfigPath(path)
-	}
-	viper.SetConfigName(".env")
-	viper.SetConfigType("env")
-	viper.AutomaticEnv()
-
-	err = viper.ReadInConfig()
-	if err != nil {
-		return
-	}
-
-	c = new(Config)
-	err = viper.Unmarshal(c)
-	return
+type Storage struct {
+	Endpoint  string `mapstructure:"ENDPOINT"`
+	AccessKey string `mapstructure:"ACCESS_KEY"`
+	SecretKey string `mapstructure:"SECRET_KEY"`
+	Region    string `mapstructure:"REGION"`
+	Bucket    string `mapstructure:"BUCKET"`
 }
 
 const (
@@ -49,16 +35,17 @@ const (
 )
 
 func main() {
-	cfg, err := loadConfig("", "externalsvc/", "./externalsvc")
+	cfg := new(Config)
+	err := config.LoadConfig(cfg, "externalsvc/.env", "./externalsvc/.env")
 	if err != nil {
 		log.Printf("Error in loading the config: %v.", err)
 		return
 	}
 
-	client, err := minio.New(cfg.StorageEndpoint, &minio.Options{
-		Creds:  credentials.NewStaticV2(cfg.StorageAccessKey, cfg.StorageSecretKey, ""),
+	client, err := minio.New(cfg.Storage.Endpoint, &minio.Options{
+		Creds:  credentials.NewStaticV2(cfg.Storage.AccessKey, cfg.Storage.SecretKey, ""),
 		Secure: true,
-		Region: cfg.StorageRegion,
+		Region: cfg.Storage.Region,
 	})
 	if err != nil {
 		log.Printf("Error in initializing the new client: %v.", err)
@@ -66,19 +53,19 @@ func main() {
 	}
 
 	ctx := context.Background()
-	isExist, err := client.BucketExists(ctx, cfg.StorageBucket)
+	isExist, err := client.BucketExists(ctx, cfg.Storage.Bucket)
 	if err != nil {
 		log.Printf("Error in checking the bucket: %v.", err)
 		return
 	}
 
 	if !isExist {
-		log.Printf("Bucket %s is not exist!", cfg.StorageBucket)
+		log.Printf("Bucket %s is not exist!", cfg.Storage.Bucket)
 		return
 	}
 
 	isObjectExist := true
-	objectInfo, err := client.StatObject(ctx, cfg.StorageBucket, testFilename, minio.GetObjectOptions{})
+	objectInfo, err := client.StatObject(ctx, cfg.Storage.Bucket, testFilename, minio.GetObjectOptions{})
 	if err != nil {
 		errResp := minio.ToErrorResponse(err)
 		if errResp.Code != "NoSuchKey" {
@@ -95,7 +82,7 @@ func main() {
 	}
 
 	if isObjectExist {
-		obj, err := client.GetObject(ctx, cfg.StorageBucket, testFilename, minio.GetObjectOptions{})
+		obj, err := client.GetObject(ctx, cfg.Storage.Bucket, testFilename, minio.GetObjectOptions{})
 		if err != nil {
 			log.Printf("Error in getting the object: %v.", err)
 			return
@@ -114,7 +101,7 @@ func main() {
 	}
 
 	strReader := strings.NewReader(testJSON)
-	uploadInfo, err := client.PutObject(ctx, cfg.StorageBucket, testFilename, strReader, int64(strReader.Len()), minio.PutObjectOptions{})
+	uploadInfo, err := client.PutObject(ctx, cfg.Storage.Bucket, testFilename, strReader, int64(strReader.Len()), minio.PutObjectOptions{})
 	if err != nil {
 		log.Printf("Error in uploading the file #%s: %v.", testFilename, err)
 		return
