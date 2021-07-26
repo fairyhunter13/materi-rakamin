@@ -1,0 +1,22 @@
+version: '3'
+services:
+  rakamin:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rakamin
+      MYSQL_DATABASE: rakamin
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - "rakamin:/var/lib/mysql"
+    ports:
+      - "3306:3306"
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - "redis:/data"
+volumes:
+  rakamin:
+  redis:
