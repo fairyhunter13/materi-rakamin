@@ -83,5 +83,20 @@ func initDBData() {
 }
 
 func addDatabaseHandler(app *fiber.App) {
-	// TODO: Add handler for getting from the database in here
+	app.Get("/db/book", func(c *fiber.Ctx) (err error) {
+		var (
+			books   []Book
+			errList []Error
+		)
+		defer printJSONErr(c, &errList, &err)
+
+		err = dbConn.Find(&books).Error
+		if err != nil {
+			log.Printf("Error in getting the books data: %v.", err)
+			return
+		}
+
+		err = c.JSON(books)
+		return
+	})
 }

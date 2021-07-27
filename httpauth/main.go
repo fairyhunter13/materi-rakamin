@@ -63,6 +63,7 @@ func main() {
 	}()
 
 	log.Printf("Server is running in the %s.", host)
+	log.Println("Press Ctrl + C to exit the server!")
 	err := app.Listen(host)
 	if err != nil {
 		log.Printf("Error in running the server: %v.", err)
