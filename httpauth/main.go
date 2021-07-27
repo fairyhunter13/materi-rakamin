@@ -9,9 +9,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// Docs: [![Run in Postman](https://run.pstmn.io/button.svg)]
-// (https://app.getpostman.com/run-collection/5f5201d4f6c0699ca078?action=collection%2Fimport)
-
 type User struct {
 	Name   string
 	Email  string
