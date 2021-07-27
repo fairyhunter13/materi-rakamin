@@ -17,6 +17,7 @@ func main() {
 	})
 	addDatabaseHandler(app)
 	addCacheHandler(app)
+	addDBCacheHandler(app)
 
 	chanServer := make(chan os.Signal, 1)
 	signal.Notify(chanServer, syscall.SIGTERM, syscall.SIGINT, os.Interrupt)
@@ -32,6 +33,7 @@ func main() {
 	}()
 
 	log.Printf("Server is running in the %s.", cfg.Host)
+	log.Println("Press Ctrl + C to exit the server!")
 	err := app.Listen(cfg.Host)
 	if err != nil {
 		log.Printf("Error in running the server: %v.", err)

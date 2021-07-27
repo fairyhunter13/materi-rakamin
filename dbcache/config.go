@@ -12,6 +12,7 @@ var cfg = new(Config)
 type Config struct {
 	Host     string   `mapstructure:"HOST"`
 	Database Database `mapstructure:"DATABASE"`
+	Cache    Cache    `mapstructure:"CACHE"`
 }
 
 type Database struct {
@@ -20,6 +21,12 @@ type Database struct {
 	Username string `mapstructure:"USERNAME"`
 	Password string `mapstructure:"PASSWORD"`
 	DBName   string `mapstructure:"DB_NAME"`
+}
+
+type Cache struct {
+	Address  string `mapstructure:"ADDRESS"`
+	Password string `mapstructure:"PASSWORD"`
+	DB       int    `mapstructure:"DB"`
 }
 
 func init() {
