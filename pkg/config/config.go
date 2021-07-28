@@ -3,7 +3,6 @@ package config
 import (
 	"encoding/json"
 	"errors"
-	"net/url"
 	"reflect"
 	"strings"
 	"time"
@@ -14,12 +13,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-// List of all constants in this package
-const (
-	ConfigTypeEnv = "env"
-)
-
-// List of all errors in this package
+// List of all errors
 var (
 	ErrInputMustBePointer = errors.New("the input interface must be a pointer")
 )
@@ -29,21 +23,7 @@ var (
 	typeMapStringString = reflect.TypeOf(map[string]string{})
 	typeMapStringBool   = reflect.TypeOf(map[string]bool{})
 	typeMap             = reflect.TypeOf(map[string]interface{}{})
-	typeURLPtr          = reflect.TypeOf(new(url.URL))
 )
-
-func StringToURLHookFunc() mapstructure.DecodeHookFunc {
-	return func(from reflect.Type, to reflect.Type, data interface{}) (res interface{}, err error) {
-		res = data
-		if from != typeString || to != typeURLPtr {
-			return
-		}
-
-		dataStr, _ := data.(string)
-		res, err = url.Parse(dataStr)
-		return
-	}
-}
 
 func isUnsupportedTypeMap(to reflect.Type) bool {
 	return to != typeMapStringString && to != typeMapStringBool && to != typeMap
@@ -90,28 +70,26 @@ func LoadConfig(iface interface{}, paths ...string) (err error) {
 	}
 
 	viperConf := viper.GetViper()
-	viperConf.SetConfigType(ConfigTypeEnv)
+	viperConf.SetConfigType("env")
 	viperConf.AutomaticEnv()
 	viperConf.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
-	BindEnvs(viperConf, iface)
+	bindEnvs(viperConf, iface)
 	err = viperConf.Unmarshal(iface, func(dc *mapstructure.DecoderConfig) {
 		dc.DecodeHook = mapstructure.ComposeDecodeHookFunc(
-			StringToURLHookFunc(),
 			StringToVariousMapsHookFunc(typeMap),
 			StringToVariousMapsHookFunc(typeMapStringBool),
 			StringToVariousMapsHookFunc(typeMapStringString),
 			mapstructure.StringToIPHookFunc(),
 			mapstructure.StringToIPNetHookFunc(),
-			mapstructure.StringToTimeHookFunc(time.RFC3339Nano),
 			dc.DecodeHook,
+			mapstructure.StringToTimeHookFunc(time.RFC3339),
 		)
 	})
 	return
 }
 
-// BindEnvs binds the env to the viper config.
-func BindEnvs(viperConf *viper.Viper, iface interface{}, parts ...string) {
+func bindEnvs(viperConf *viper.Viper, iface interface{}, parts ...string) {
 	val := reflecthelper.GetChildElem(reflect.ValueOf(iface))
 	if reflecthelper.GetKind(val) != reflect.Struct {
 		return
@@ -131,7 +109,7 @@ func BindEnvs(viperConf *viper.Viper, iface interface{}, parts ...string) {
 		}
 		switch v.Kind() {
 		case reflect.Struct:
-			BindEnvs(viperConf, v.Interface(), append(parts, tv)...)
+			bindEnvs(viperConf, v.Interface(), append(parts, tv)...)
 		default:
 			viperConf.BindEnv(strings.Join(append(parts, tv), "."))
 		}
