@@ -104,7 +104,7 @@ func bindEnvs(viperConf *viper.Viper, iface interface{}, parts ...string) {
 		v := val.Field(i)
 		t := typ.Field(i)
 		tv, ok := t.Tag.Lookup("mapstructure")
-		if !ok && !reflecthelper.IsKindStruct(v.Kind()) {
+		if !ok {
 			continue
 		}
 		switch v.Kind() {
