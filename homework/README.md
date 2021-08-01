@@ -1,14 +1,20 @@
 # Cara Pengerjaan Homework
 
-> <span style="color:red">DISCLAIMER: JIKA PANDUAN INI TIDAK DIIKUTI DENGAN BAIK, MAKA HOMEWORK YANG DISUBMIT TIDAK DAPAT DINILAI. MAKA, OTOMATIS NILAI YANG DIDAPATKAN ADALAH NOL (0). HATI - HATI! PANDUAN INI MERUPAKAN PANDUAN YANG HUKUMNYA WAJIB UNTUK DIIKUTI.</span>
+```diff
+- DISCLAIMER: JIKA PANDUAN INI TIDAK DIIKUTI DENGAN BAIK, MAKA HOMEWORK YANG DISUBMIT TIDAK DAPAT DINILAI.
+- OTOMATIS NILAI YANG DIDAPATKAN ADALAH NOL (0).
+- HATI - HATI! PANDUAN INI MERUPAKAN PANDUAN YANG HUKUMNYA WAJIB UNTUK DIIKUTI.
+```
 
-> <span style="color:green">Silakan bertanya kepada tutor kelas masing - masing terkait panduan pengerjaan homework ini.</span>
+```diff
++ Silakan bertanya kepada tutor kelas masing - masing terkait panduan pengerjaan homework ini.
+```
 
 ## Ketentuan Struktur Folder
 
 Struktur folder di bawah ini adalah struktur originalnya.
-Struktur ini tidak boleh diubah dan diganti namanya.
-Struktur ini juga tidak boleh ditambahkan dan dikurangi.
+Struktur ini **TIDAK BOLEH** diubah dan diganti namanya.
+Struktur ini juga **TIDAK BOLEH** ditambahkan dan dikurangi.
 Penggantian nama hanya diperbolehkan untuk folder `homework` yang merupakan *parent* dari **homework question folder**.
 
 ```
@@ -33,9 +39,9 @@ Contoh:
 `KELAS` hanya diisi **satu huruf abjadnya**, seperti contoh di atas.
 
 `NAMA` juga memiliki ketentuan khusus, yaitu:
-- **Tidak boleh** mengandung karakter, selain `_`, `-`, `A-Z`, dan `a-z`. Representasi dalam regex adalah sebagai berikut: `[A-Za-z_-]`.
+- **TIDAK BOLEH** mengandung karakter, selain `_`, `-`, `A-Z`, dan `a-z`. Representasi dalam regex adalah sebagai berikut: `[A-Za-z_-]`.
 - Hanya boleh menggunakan huruf kapital, seperti contoh di atas.
-- Nama **tidak boleh** di awali dan diakhiri dengan karakter selain `A-Z` dan `a-z`. Representasi dalam regex adalah sebagai berikut: `^[A-Za-z]+[A-Za-z-_]*[A-Za-z]+$`.
+- Nama **TIDAK BOLEH** di awali dan diakhiri dengan karakter selain `A-Z` dan `a-z`. Representasi dalam regex adalah sebagai berikut: `^[A-Za-z]+[A-Za-z-_]*[A-Za-z]+$`.
 - Spasi '` `' pada nama diganti dengan ***underscore*** '`_`'.
 
 Dengan menggunakan ketentuan penamaan di atas, struktur folder akan berubah menjadi seperti di bawah ini:
@@ -49,4 +55,26 @@ Dengan menggunakan ketentuan penamaan di atas, struktur folder akan berubah menj
 └── ...
 ```
 
-### Ketentuan Kode Program
+## Ketentuan Kode Program
+
+Kode program yang dikembangkan untuk mengerjakan *homework* ini juga memiliki beberapa ketentuan. Ketentuan - ketentuan tersebut adalah sebagai berikut:
+- Kode program hanya boleh menggunakan *library* **standar** dan **eksternal**, tetapi kode program **TIDAK BOLEH** menggunakan *library* **custom**. Contoh yang **TIDAK BOLEH** digunakan adalah sebagai berikut:
+```
+.
+├── KELAS_C_HAFIZ_PUTRA_LUDYANTO   # your homework folder
+│   ├── changoroutine              # homework question folder
+│   ├── httphandler                # homework question folder
+│   ├── oop                        # homework question folder
+│   └── customlib                  # your custom library folder
+└── ...
+```
+- Kode program hanya boleh ditambahkan pada **homework question folder** saja, tetapi kode program **TIDAK BOLEH** ditambahkan di luar *folder* - *folder* tersebut. Contoh yang **TIDAK BOLEH** digunakan adalah sebagai berikut:
+```
+.
+├── KELAS_C_HAFIZ_PUTRA_LUDYANTO   # your homework folder
+│   ├── changoroutine              # homework question folder
+│   ├── httphandler                # homework question folder
+│   ├── oop                        # homework question folder
+│   └── code.go                    # your other golang code
+└── ...
+```
