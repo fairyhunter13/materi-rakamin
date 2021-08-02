@@ -1,4 +1,4 @@
-# Cara Pengerjaan Homework
+# Cara Pengerjaan Homework 3
 
 ```diff
 - DISCLAIMER: JIKA PANDUAN INI TIDAK DIIKUTI DENGAN BAIK, MAKA HOMEWORK YANG DISUBMIT TIDAK DAPAT DINILAI.
@@ -77,4 +77,23 @@ Kode program yang dikembangkan untuk mengerjakan *homework* ini juga memiliki be
 │   ├── oop                        # homework question folder
 │   └── code.go                    # your other golang code
 └── ...
+```
+
+## Ketentuan Pengarsipan
+
+Pengarsipan *homework* juga mengikuti panduan yang telah ditetapkan. Nama arsip yang dihasilkan memiliki nama yang sama dengan penamaan folder `homework`. Format untuk nama arsip adalah sebagai berikut:
+
+`KELAS_{{KELAS}}_{{NAMA}}.zip`
+
+Panduan `KELAS` dan `NAMA` pada format di atas sama dengan panduan - panduan sebelumnya.
+
+Hal yang perlu diperhatikan dari format di atas adalah **EKSTENSI** yang digunakan untuk arsip, yaitu `.zip`.
+Struktur di dalam arsip setelah pengarsipan adalah sebagai berikut:
+```
+.
+└── KELAS_C_HAFIZ_PUTRA_LUDYANTO.zip   # your archived homework for submission
+    └── KELAS_C_HAFIZ_PUTRA_LUDYANTO   # your homework folder
+        ├── changoroutine              # homework question folder
+        ├── httphandler                # homework question folder
+        └── oop                        # homework question folder
 ```
