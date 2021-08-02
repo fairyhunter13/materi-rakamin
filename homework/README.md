@@ -39,9 +39,9 @@ Contoh:
 `KELAS` hanya diisi **satu huruf abjadnya**, seperti contoh di atas.
 
 `NAMA` juga memiliki ketentuan khusus, yaitu:
-- **TIDAK BOLEH** mengandung karakter, selain `_`, `-`, `A-Z`, dan `a-z`. Representasi dalam regex adalah sebagai berikut: `[A-Za-z_-]`.
-- Hanya boleh menggunakan huruf kapital, seperti contoh di atas.
-- Nama **TIDAK BOLEH** di awali dan diakhiri dengan karakter selain `A-Z` dan `a-z`. Representasi dalam regex adalah sebagai berikut: `^[A-Za-z]+[A-Za-z-_]*[A-Za-z]+$`.
+- **TIDAK BOLEH** mengandung karakter, selain `_`, `-`, dan `A-Z`. Representasi dalam regex adalah sebagai berikut: `[A-Z_-]`.
+- Hanya boleh menggunakan huruf **KAPITAL**, seperti contoh di atas.
+- Nama **TIDAK BOLEH** di awali dan diakhiri dengan karakter selain `A-Z`. Representasi dalam regex adalah sebagai berikut: `^[A-Z]+[A-Z-_]*[A-Z]+$`.
 - Spasi '` `' pada nama diganti dengan ***underscore*** '`_`'.
 
 Dengan menggunakan ketentuan penamaan di atas, struktur folder akan berubah menjadi seperti di bawah ini:
