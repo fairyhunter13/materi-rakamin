@@ -16,8 +16,9 @@ type counter struct {
 
 func (c *counter) AddCounter(inc int64) {
 	atomic.AddUint64(&c.called, 1)
-	atomic.AddInt64(&c.counter, inc)
-	if count := runtime.Callers(3, make([]uintptr, 1)); count == 0 {
+	pc := make([]uintptr, 1)
+	count := runtime.Callers(5, pc)
+	if count == 0 {
 		atomic.AddUint64(&c.goCounter, 1)
 	}
 }
@@ -51,7 +52,7 @@ func TestTryChanGoroutine(t *testing.T) {
 	require.Equal(t, 0, len(intChan))
 	require.Equal(t, 47, allSum)
 
-	require.Equal(t, 50, c.called)
+	require.EqualValues(t, 50, c.called)
 	require.True(t, c.counter >= 10*100*10)
 	require.True(t, c.goCounter >= 45)
 }
