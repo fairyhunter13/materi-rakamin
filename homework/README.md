@@ -97,3 +97,7 @@ Struktur di dalam arsip setelah pengarsipan adalah sebagai berikut:
         ├── httphandler                # homework question folder
         └── oop                        # homework question folder
 ```
+
+## Link Pengumpulan
+
+Pengumpulan *homework* dapat dilakukan melalui link berikut: https://bit.ly/GolangHomework3.
