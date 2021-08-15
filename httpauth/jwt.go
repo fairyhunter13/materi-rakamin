@@ -9,7 +9,7 @@ import (
 	"github.com/golang-jwt/jwt"
 )
 
-var signingKey = []byte("secret")
+var signingKey = []byte("rakamin")
 
 type UserRequest struct {
 	User     string `json:"user"`
@@ -37,6 +37,7 @@ func addJWTRoute(app *fiber.App) {
 		claims["name"] = "Admin"
 		claims["admin"] = true
 		claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
+		signJwt.Claims = claims
 
 		token, err := signJwt.SignedString(signingKey)
 		if err != nil {
