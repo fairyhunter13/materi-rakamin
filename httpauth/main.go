@@ -5,32 +5,46 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/shopspring/decimal"
 )
 
-type User struct {
-	Name   string
-	Email  string
-	Gender string
+type Product struct {
+	Name         string          `json:"name"`
+	Kind         string          `json:"kind"`
+	Price        decimal.Decimal `json:"price"`
+	Place        string          `json:"place"`
+	Barcode      string          `json:"barcode"`
+	PurchaseDate time.Time       `json:"purchase_date"`
 }
 
 var (
-	users = []User{
+	users = []Product{
 		{
-			Name:   "John",
-			Email:  "john@example.com",
-			Gender: "male",
+			Name:         "Mie Samyang",
+			Kind:         "Noodle",
+			Price:        decimal.NewFromInt(20000),
+			Place:        "Alfamart",
+			Barcode:      "AA112233",
+			PurchaseDate: time.Now().Add(-3 * 24 * time.Hour),
 		},
 		{
-			Name:   "Sarah",
-			Email:  "sarah@example.com",
-			Gender: "female",
+			Name:         "Mie Gaga 100",
+			Kind:         "Noodle",
+			Price:        decimal.NewFromInt(3000),
+			Place:        "Alfamart",
+			Barcode:      "BB112233",
+			PurchaseDate: time.Now().Add(-1 * 24 * time.Hour),
 		},
 		{
-			Name:   "Alvin",
-			Email:  "alvin@example.com",
-			Gender: "male",
+			Name:         "Susu UHT Coklat 1 Liter",
+			Kind:         "Milk",
+			Price:        decimal.NewFromInt(20000),
+			Place:        "Alfamart",
+			Barcode:      "CC321123",
+			PurchaseDate: time.Now().Add(-5 * time.Hour),
 		},
 	}
 )

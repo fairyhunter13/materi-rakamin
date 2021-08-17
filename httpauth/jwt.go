@@ -12,7 +12,7 @@ import (
 var signingKey = []byte("rakamin")
 
 type UserRequest struct {
-	User     string `json:"user"`
+	Username string `json:"username"`
 	Password string `json:"password"`
 }
 
@@ -26,7 +26,7 @@ func addJWTRoute(app *fiber.App) {
 			return
 		}
 
-		if req.User != "admin" || req.Password != "4dm1n" {
+		if req.Username != "admin" || req.Password != "4dm1n" {
 			err = c.SendStatus(fiber.StatusUnauthorized)
 			return
 		}
@@ -49,10 +49,10 @@ func addJWTRoute(app *fiber.App) {
 		return
 	})
 
-	apiGroup.Use("/users", jwtware.New(jwtware.Config{
+	apiGroup.Use("/products", jwtware.New(jwtware.Config{
 		SigningKey: signingKey,
 	}))
-	apiGroup.Get("/users", func(c *fiber.Ctx) error {
+	apiGroup.Get("/products", func(c *fiber.Ctx) error {
 		return c.JSON(users)
 	})
 }

@@ -113,6 +113,9 @@ github.com/pmezard/go-difflib/difflib
 github.com/reiver/go-cast
 # github.com/rs/xid v1.2.1
 github.com/rs/xid
+# github.com/shopspring/decimal v1.2.0
+## explicit
+github.com/shopspring/decimal
 # github.com/sirupsen/logrus v1.8.1
 github.com/sirupsen/logrus
 # github.com/spf13/afero v1.6.0
