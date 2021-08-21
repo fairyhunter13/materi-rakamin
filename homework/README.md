@@ -10,6 +10,34 @@
 + Silakan bertanya kepada tutor kelas masing - masing terkait panduan pengerjaan homework ini.
 ```
 
+## Cara Menyelesaikan
+
+Homework ini diselesaikan dengan cara menjalankan file test yang terdapat pada masing - masing folder, `oop`, `httphandler`, dan `changoroutine`. File test tersebut memiliki sintaksis, seperti `*_test.go`. Salah satu contoh keluaran pada file test yang dijalankan adalah sebagai berikut:
+
+```sh
+Running tool: C:\Go\bin\go.exe test -timeout 30s -run ^TestTryOOP$ github.com/fairyhunter13/materi-rakamin/homework/oop -race -v
+
+=== RUN   TestTryOOP
+    d:\go\src\github.com\fairyhunter13\materi-rakamin\homework\oop\oop_test.go:18:
+        	Error Trace:	oop_test.go:18
+        	Error:      	Object expected to be of type *oop.Completed, but was *oop.Draft
+        	Test:       	TestTryOOP
+--- FAIL: TestTryOOP (0.00s)
+FAIL
+FAIL	github.com/fairyhunter13/materi-rakamin/homework/oop	0.101s
+```
+
+Keluaran di atas menunjukkan bahwa test yang dijalankan belum berhasil. Indikator tersebut menunjukkan bahwa homework belum selesai dikerjakan. Homework telah selesai dikerjakan apabila test yang dijalankan menghasilkan keluaran sebagai berikut:
+
+```sh
+Running tool: C:\Go\bin\go.exe test -timeout 30s -run ^TestTryOOP$ github.com/fairyhunter13/materi-rakamin/homework/oop -race -v
+
+=== RUN   TestTryOOP
+--- PASS: TestTryOOP (0.00s)
+PASS
+ok  	github.com/fairyhunter13/materi-rakamin/homework/oop	1.091s
+```
+
 ## Ketentuan Struktur Folder
 
 Struktur folder di bawah ini adalah struktur originalnya.
