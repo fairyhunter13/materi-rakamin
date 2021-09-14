@@ -16,6 +16,8 @@ type counter struct {
 
 func (c *counter) AddCounter(inc int64) {
 	atomic.AddUint64(&c.called, 1)
+	// Add an answer for the counter.
+	atomic.AddInt64(&c.counter, inc)
 	pc := make([]uintptr, 1)
 	count := runtime.Callers(5, pc)
 	if count == 0 {
